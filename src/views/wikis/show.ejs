@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../static/partials/head.ejs %>
+</head>
+
+<body>
+  <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <% include ../static/partials/messages.ejs %>
+
+      <hr>
+      <% if(currentUser) { %>
+        <% if (authorizer.edit()) { %>
+          <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit</a>
+        <% } %>
+        <% if (authorizer.new()) { %>
+          <a href="/wikis/new" class="btn btn-success">New Wiki</a>
+        <% } %>
+        <% if (authorizer.destroy()) { %>
+          <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        <% } %>
+
+        <% if(wiki.private && authorizer.setPublic()) { %>
+          <form style="display:initial" action="/wikis/<%= wiki.id %>/setpublic" method="post">
+            <button type="submit" class="btn btn-danger">Set Public</button>
+          </form>
+        <% } else if (!wiki.private && authorizer.setPrivate()) { %>
+          <form style="display:initial" action="/wikis/<%= wiki.id %>/setprivate" method="post">
+            <button type="submit" class ="btn btn-success">Set Private</button>
+          </form>
+        <% } %>
+      <% } %>
+
+      <hr>
+      <div class="card border-primary mb-3">
+        <div class="card-header bg-primary text-white" style="font-size:x-large"><%- markdown.toHTML(wiki.title) %>
+          <% if(wiki.private) { %>
+           <span class="badge badge-warning" style="font-size:small">Private</span>
+          <% } %>
+        </div>
+        <div class="card-body"> <%- markdown.toHTML(wiki.body) %> </div>
+      </div>
+
+      <small class="card-subtitle mb-2 text-muted">
+        by <%= wiki.creator.name %> on <%= wiki.createdAt %>
+      </small>
+
+      <% if(wiki.private && collaborators!='none') { %>
+        <hr>
+        <h3>Collaborators</h3>
+        <table class="table table-bordered table-dark table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Access</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% collaborators.forEach(user => { %>
+              <tr>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td>
+                  <input type="checkbox" name=<%=user.id%> value="true" checked disabled>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } %>
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+</body>
+
+</html>

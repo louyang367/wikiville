@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">Wikiville</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/wikis">Wikis</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <% if(currentUser) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/logout">log out</a>
+          </li>
+          <% if(currentUser.role == 0) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/users/upgradeform">Upgrade to Premium</a>
+            </li>
+          <% } else if(currentUser.role == 1) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/users/downgradeform">Downgrade to Standard</a>
+            </li>
+          <% }%>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/signup">Sign up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/login">Log in</a>
+          </li>
+        <% }%>
+
+      </ul>
+    </div>
+  </div>
+</nav>

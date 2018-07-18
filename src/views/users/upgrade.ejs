@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../static/partials/head.ejs %>
+</head>
+
+<body>
+
+  <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+      <% include ../static/partials/messages.ejs %>
+
+      <h2>Upgrade to premium account</h2>
+      <h4> ... and create private wikis! </h4>
+      <hr>
+      <hr>
+      <div class="row">
+        <div class="col-md-8">
+          <form method="POST" action="/users/upgrade">
+            <script
+              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="pk_test_4arHW0b6zwM3x4Kb68CzzMFV"
+              data-amount="1500"
+              data-name="Account Upgrade"
+              data-description="Upgrade to premium account"
+              data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+              data-locale="auto">
+            </script>
+          </form>
+        </div>
+      </div>
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+</body>
+
+</html>

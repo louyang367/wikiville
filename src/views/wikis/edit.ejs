@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+    <% include ../static/partials/messages.ejs %>
+
+    <main class="container">
+
+      <h1 class="display-4">Edit Wiki
+        <% if(wiki.private) { %>
+          <span class="badge badge-warning" style="font-size:medium">Private</span>
+        <% } %>
+      </h1>
+      <form action="/wikis/<%= wiki.id %>/update" method="post">
+        <div class="form-group">
+          <label for="title">Wiki title</label>
+          <input value="<%= wiki.title %>" type="text" class="form-control" name="title" aria-describedby="titleHelp" placeholder="Enter Title" id="title-input" oninput="this.editor.update()">
+        </div>
+        <div class="form-group">
+          <label for="body">Wiki body</label>
+          <textarea rows="4" class="form-control" name="body" placeholder="Enter wiki body" id="text-input" oninput="this.editor.update()"><%= wiki.body %></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Update</button>
+      </form>
+
+      <hr>
+      <h4>Preview</h4>
+      <div class="card border-primary mb-3">
+        <div class="card-header bg-primary text-white" style="font-size:x-large" id="title-preview"><%= wiki.title %></span>
+        </div>
+        <div class="card-body"><div id="preview"></div> </div>
+      </div>
+
+    
+      <script type="text/javascript" src="/scripts/markdown/lib/markdown.js" ></script> 
+      <script>
+        function Editor(input, preview) {
+          this.update = function () {
+            preview.innerHTML = markdown.toHTML(input.value);
+          };
+          input.editor = this;
+          this.update();
+        }
+        var $ = function (id) { return document.getElementById(id); };
+        new Editor($("text-input"), $("preview"));
+        new Editor($("title-input"), $("title-preview"));
+      </script> 
+
+      <% if(wiki.private && users!='none') { %>
+        <hr>
+        <h3>Add collaborators</h3>
+        <p>Showing all users</p>
+
+        <form action="/wikis/<%= wiki.id %>/share" method="post">
+
+          <table class="table table-bordered table-dark table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Access</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.filter(user=>user.id!=currentUser.id).forEach(user => { %>
+                <tr>
+                  <td><%= user.name %></td>
+                  <td><%= user.email %></td>
+                  <td>
+                    <% if ( authorizer.setCollaborators() ) { %>
+                      <% if (collaborators.indexOf(user.id)>=0) { %>
+                        <input type="checkbox" name=<%=user.id%> value="true" checked>
+                      <% } else { %>
+                         <input type="checkbox" name=<%=user.id%> value="true">
+                      <% } %>
+                    <% } else { %>
+                      <% if (collaborators.indexOf(user.id)>=0) { %>
+                        <input type="checkbox" name=<%=user.id%> value="true" checked disabled>
+                      <% } else { %>
+                         <input type="checkbox" name=<%=user.id%> value="true" disabled>
+                      <% } %>
+                    <% } %>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+
+          <button type="submit" class="btn btn-success">Share wiki</button>
+        </form>
+      <% } %>
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+ 
+  </body>
+</html>

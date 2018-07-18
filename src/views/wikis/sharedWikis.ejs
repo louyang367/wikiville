@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../static/partials/head.ejs %>
+</head>
+
+<body>
+  <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+      <% include ../static/partials/messages.ejs %>
+
+      <h1>Collaborative Wikis</h1>
+
+      <ul class="list-group">
+        <% wikis.forEach((wiki) => { %>
+          <li class="list-group-item">
+            <a href="/wikis/<%= wiki.id %>"> 
+              <%- markdown.toHTML(wiki.title) %>
+              <span class="text-muted">   (shared by: <%= wiki.creator.name %>)</span>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+</body>
+
+</html>

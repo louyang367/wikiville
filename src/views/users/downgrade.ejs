@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../static/partials/head.ejs %>
+</head>
+
+<body>
+
+  <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+      <% include ../static/partials/messages.ejs %>
+
+      <h2>Account Downgrade</h2>
+
+      <ul>
+        <li> All your private wikis will become public. 
+        <li> No refund will be given
+      </ul>
+      <hr>
+      <h4> Do you still want to downgrade to standard account? </h4>
+      <hr>
+      <hr>
+      <div class="row">
+        <div class="col-md-8">
+          <form method="POST" action="/users/downgrade">
+            <button type="submit" class="btn btn-primary">Yes</button>
+          </form>
+          <hr>
+
+            <a href= <%= referer %> ><button class="btn btn-primary">No</button></a>
+
+        </div>
+      </div>
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+</body>
+
+</html>
