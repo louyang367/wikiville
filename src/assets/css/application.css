@@ -24,8 +24,18 @@ main header {
   font-size: 2rem;
 }
 
-header h1, header h3 {
-  background: rgba(105, 104, 104, 0.582);
+.signup-button {
+  width: 200px;
+  background: #007bffa2;
+}
+
+.homepage h1 {
+  /* background: rgba(105, 104, 104, 0.582); */
+  font-family: 'Oswald', sans-serif;
+  /* color: rgb(8, 71, 71); */
+}
+.homepage h3 {
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .body-help {
