@@ -10,32 +10,14 @@
   <% include ../static/partials/messages.ejs %>
 
     <main class="container">
-      <h1 class="display-4">New Wiki</h1>
+      <h1 class="display-4 mt-4">New Wiki</h1>
 
       <form action="/wikis/create" method="post">
-        <div class="form-group">
-          <label for="title">Wiki title</label>
-          <input type="text" class="form-control" name="title" aria-describedby="titleHelp" placeholder="Enter Title" id="title-input" oninput="this.editor.update()">
-          <small class="text-muted" id="titleHelp">title must be 2 or more characters in length.</small>
-        </div>
-        <div class="form-group">
-          <label for="body">Wiki body</label>
-          <textarea rows="4" class="form-control" name="body" placeholder="Enter wiki body" id="text-input" oninput="this.editor.update()"></textarea>
-          <small class="text-muted" id="bodyHelp">body must be 10 or more characters in length.</small>
-        </div>
-        <div class="checkbox">
-          <% if(authorizer.setPrivate()) { %>
-            <label><input type="checkbox" name="private" value="true"> Private</label>
-          <% } else { %>
-            <label><input type="checkbox" name="private" value="true" disabled> Private</label>
-          <% } %>
-        </div>
-        <hr>
-        <button type="submit" class="btn btn-success">Submit</button>
+          <% include ./partials/editForm.ejs %>
+
       </form>
 
-      <hr>
-      <h4>Preview</h4>
+      <h4 class='mt-5'>Preview</h4>
       <div class="card border-primary mb-3">
         <div class="card-header bg-primary text-white" style="font-size:x-large" id="title-preview"></div>
         <div class="card-body"><div id="preview"></div> </div>

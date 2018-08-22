@@ -7,24 +7,36 @@
 
 <body>
   <% include ../static/partials/navbar.ejs %>
+  <% include ../static/partials/messages.ejs %>
 
-    <main class="container">
-      <% include ../static/partials/messages.ejs %>
+  <main class="container">
 
-      <% if(currentUser.isAdmin()) { %>
-        <h1>All Private Wikis</h1>
-      <% } else { %>
-        <h1>My Private Wikis</h1>
-      <% } %>
+    <div class='container mt-5'>
+      <nav class="navbar navbar-expand-sm navbar-white bg-white p-2">
+       <ul class="navbar-nav">
+          <li class="nav-item cat-btn px-2">
+            <a href="/wikis" class="nav-link"><h4>Public Wikis</h4></a>
+          </li>
+          <li class="nav-item cat-btn px-2">
+            <a href="/wikis/mywikis" class="nav-link active"><h4>
+              <% if(currentUser.isAdmin()) { %>
+                All Private Wikis
+              <% } else { %>
+                My Private Wikis
+              <% } %>
+            </h4></a>
+          </li>
+            <li class="nav-item cat-btn px-2">
+            <a href="/wikis/sharedwikis" class="nav-link"><h4>Collaborative Wikis</h4></a>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
-      <% if(authorizer.new()) { %>
-        <a href="/wikis/new" class="btn btn-success">New Wiki</a>
-      <% } %>
-   
       <ul class="list-group">
         <% wikis.forEach((wiki) => { %>
-          <li class="list-group-item">
-            <a href="/wikis/<%= wiki.id %>"> <%- markdown.toHTML(wiki.title) %> </a>
+          <li class="list-group-item border-0">
+            <a href="/wikis/<%= wiki.id %>"><i class="fas fa-angle-double-right"></i> <%- markdown.toHTML(wiki.title).slice(3,-4) %> </a>
           </li>
         <% }) %>
       </ul>

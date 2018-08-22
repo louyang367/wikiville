@@ -12,11 +12,12 @@
     <main class="container">
       <% include ../static/partials/messages.ejs %>
 
-      <h2>Upgrade to premium account</h2>
-      <h4> ... and create private wikis! </h4>
-      <hr>
-      <hr>
-      <div class="row">
+      <h2 class='display-4 mt-4'>Upgrade to premium account</h2>
+      <blockquote>A one time upgrade fee of $15 enables you to - </blockquote>
+      <p><i class="far fa-check text-primary font-weight-bold"></i> Create private wikis
+      <p><i class="far fa-check text-primary font-weight-bold"></i> Pick fellow Wikiville editors to collaborate on your private wikis
+
+      <div class="row mt-4">
         <div class="col-md-8">
           <form method="POST" action="/users/upgrade">
             <script

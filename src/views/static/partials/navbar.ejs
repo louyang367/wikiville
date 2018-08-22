@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top mb-4 wiki-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">Wikiville</a>
 
@@ -11,22 +11,24 @@
         <li class="nav-item">
           <a class="nav-link" href="/wikis">Wikis</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
         <% if(currentUser) { %>
           <li class="nav-item">
-            <a class="nav-link" href="/users/logout">log out</a>
+            <a class="nav-link" href="/wikis/new">Create</a>
           </li>
-          <% if(currentUser.role == 0) { %>
+        <% }%>
+        <% if(currentUser) { %>
+          <% if(currentUser.isStandard()) { %>
             <li class="nav-item">
               <a class="nav-link" href="/users/upgradeform">Upgrade to Premium</a>
             </li>
-          <% } else if(currentUser.role == 1) { %>
+          <% } else if(currentUser.isPremium() == 1) { %>
             <li class="nav-item">
               <a class="nav-link" href="/users/downgradeform">Downgrade to Standard</a>
             </li>
           <% }%>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/logout">log out</a>
+          </li>
         <% } else { %>
           <li class="nav-item">
             <a class="nav-link" href="/users/signup">Sign up</a>

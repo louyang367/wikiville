@@ -56,7 +56,11 @@ module.exports = {
   new(req, res, next) {
     const authorizer = new Authorizer(req.user, null);
     if (authorizer.new()) {
-      res.render("wikis/new", { authorizer });
+      let wiki = {
+        title: null,
+        body: null
+      }
+      res.render("wikis/new", { authorizer, wiki });  // for editForm partial
     } else {
       req.flash("notice", "You have to be logged in to create new wikis.");
       res.redirect("/wikis");
@@ -307,7 +311,7 @@ module.exports = {
           req.flash("notice", "Upating collaborators failed!");
           res.redirect(404, "/");
         } else {
-          req.flash("notice", `${result[1].length} collaborator(s) set!`);
+          req.flash("notice", 'collaborator(s) set!');
           res.redirect(`/wikis/${req.params.id}`)
         }
       })

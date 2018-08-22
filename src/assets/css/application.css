@@ -1,3 +1,68 @@
 body {
   padding-top: 54px;
 }
+
+main header {
+  height: 1000px;
+  background-image: url("/images/collaboration1.jpeg") ;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; 
+  opacity: 1;
+}
+
+.wiki-navbar {
+  background-color: rgb(8, 71, 71);
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-size: 1.5rem;
+}
+.wiki-navbar .active, .wiki-navbar:hover {
+  color: white;
+}
+.wiki-navbar .navbar-brand{
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 2rem;
+}
+
+header h1, header h3 {
+  background: rgba(105, 104, 104, 0.582);
+}
+
+.body-help {
+  display: inline-block;
+}
+
+.markdown-hints {
+  color: #999;
+  font-size: 12px;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.markdown-hints div {
+  margin-left: 12px;
+  display: inline
+}
+
+main .edit-wiki {
+  display: flex;
+  flex-direction: column;
+  /* width: 80% */
+}
+
+.cat-btn {
+  border: none;
+  outline: none;
+  border-radius: 15px 15px 0px 0px;
+  cursor: pointer;
+  text-align: center;
+  border-bottom: 2px groove rgba(179, 167, 118, .90);
+  width: 300px
+}
+
+/* Style the active class (and buttons on mouse-over) */
+.active, .cat-btn:hover {
+  background-color: rgba(179, 167, 118, .90);
+  color: white;
+  border-radius: 15px 15px 0px 0px;
+}

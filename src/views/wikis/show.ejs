@@ -12,38 +12,44 @@
 
       <% include ../static/partials/messages.ejs %>
 
-      <hr>
+      <div class='container'>
+      <div class='row mt-5'>
+      <div class="col-sm-2">
+      <nav class="navbar">
+
       <% if(currentUser) { %>
         <% if (authorizer.edit()) { %>
-          <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit</a>
-        <% } %>
-        <% if (authorizer.new()) { %>
-          <a href="/wikis/new" class="btn btn-success">New Wiki</a>
+          <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning btn-block my-2 mx-auto" style='width:95px'>Edit</a>
         <% } %>
         <% if (authorizer.destroy()) { %>
-          <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
-            <button type="submit" class="btn btn-danger">Delete</button>
+          <form action="/wikis/<%= wiki.id %>/destroy" method="post">
+          <button type="submit" class="btn btn-danger btn-block my-2 mx-auto" style='width:95px'>Delete</button>
           </form>
         <% } %>
 
         <% if(wiki.private && authorizer.setPublic()) { %>
-          <form style="display:initial" action="/wikis/<%= wiki.id %>/setpublic" method="post">
-            <button type="submit" class="btn btn-danger">Set Public</button>
+          <form action="/wikis/<%= wiki.id %>/setpublic" method="post">
+          <button type="submit" class="btn btn-warning btn-block my-2 mx-auto" style='width:95px'>Set Public</button>
           </form>
         <% } else if (!wiki.private && authorizer.setPrivate()) { %>
-          <form style="display:initial" action="/wikis/<%= wiki.id %>/setprivate" method="post">
-            <button type="submit" class ="btn btn-success">Set Private</button>
+          <form action="/wikis/<%= wiki.id %>/setprivate" method="post"><button type="submit" class ="btn btn-success btn-block my-2 mx-auto" style='width:95px'>Set Private</button>
           </form>
         <% } %>
+
+      <% } else { %>
+        <lead> Please log in to edit wikis.</lead>
       <% } %>
 
-      <hr>
-      <div class="card border-primary mb-3">
-        <div class="card-header bg-primary text-white" style="font-size:x-large"><%- markdown.toHTML(wiki.title) %>
-          <% if(wiki.private) { %>
-           <span class="badge badge-warning" style="font-size:small">Private</span>
-          <% } %>
-        </div>
+      </nav>
+      </div>
+
+      <div class="col-sm-10 border-left">
+        <div class="card border-primary mb-3">
+          <h3 class="card-header bg-primary text-white"><%- markdown.toHTML(wiki.title).slice(3,-4) %>
+            <% if(wiki.private) { %>
+             <span class="badge badge-pill badge-warning ml-2" style="font-size:small">Private</span>
+            <% } %>
+          </h3>
         <div class="card-body"> <%- markdown.toHTML(wiki.body) %> </div>
       </div>
 
@@ -52,10 +58,9 @@
       </small>
 
       <% if(wiki.private && collaborators!='none') { %>
-        <hr>
-        <h3>Collaborators</h3>
-        <table class="table table-bordered table-dark table-striped">
-          <thead>
+        <h3 class='mt-4'>Collaborators</h3>
+        <table class="table table-hover">
+          <thead class="thead-light">
             <tr>
               <th>Name</th>
               <th>Email</th>
@@ -75,6 +80,9 @@
           </tbody>
         </table>
       <% } %>
+
+      </div>
+      </div>
 
     </main>
 

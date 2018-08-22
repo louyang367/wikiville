@@ -7,18 +7,39 @@
 
 <body>
   <% include ../static/partials/navbar.ejs %>
+  <% include ../static/partials/messages.ejs %>
 
-    <main class="container">
-      <% include ../static/partials/messages.ejs %>
+  <main class="container">
 
-      <h1>Collaborative Wikis</h1>
+    <div class='container mt-5'>
+      <nav class="navbar navbar-expand-sm navbar-white bg-white p-2">
+       <ul class="navbar-nav">
+          <li class="nav-item cat-btn px-2">
+            <a href="/wikis" class="nav-link"><h4>Public Wikis</h4></a>
+          </li>
+          <li class="nav-item cat-btn px-2">
+            <a href="/wikis/mywikis" class="nav-link"><h4>
+              <% if(currentUser.isAdmin()) { %>
+                All Private Wikis
+              <% } else { %>
+                My Private Wikis
+              <% } %>
+            </h4></a>
+          </li>
+            <li class="nav-item cat-btn px-2">
+            <a href="/wikis/sharedwikis" class="nav-link active"><h4>Collaborative Wikis</h4></a>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
       <ul class="list-group">
         <% wikis.forEach((wiki) => { %>
-          <li class="list-group-item">
+          <li class="list-group-item border-0">
             <a href="/wikis/<%= wiki.id %>"> 
-              <%- markdown.toHTML(wiki.title) %>
-              <span class="text-muted">   (shared by: <%= wiki.creator.name %>)</span>
+              <i class="fas fa-angle-double-right"></i>
+              <%- markdown.toHTML(wiki.title).slice(3,-4) %>
+              <span class="text-muted"> (shared by: <%= wiki.creator.name %>)</span>
             </a>
           </li>
         <% }) %>

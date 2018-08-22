@@ -39,7 +39,7 @@ module.exports = class ApplicationPolicy {
   }
 
   edit() {
-    return this._isOwner() || this._isAdmin() || this._isCollaborator();
+    return this._isOwner() || this._isAdmin() || this._isCollaborator() || (this.user != null && !this.record.private);
   }
 
   update() {

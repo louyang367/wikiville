@@ -7,34 +7,59 @@
 
 <body>
   <% include ../static/partials/navbar.ejs %>
+  <% include ../static/partials/messages.ejs %>
 
     <main class="container">
-      <% include ../static/partials/messages.ejs %>
 
-      <h1>Public Wikis</h1>
-      
-      <% if(currentUser) { %>
-        <a href="/wikis/new" class="btn btn-success">New Wiki</a>
+    <div class='container mt-5'>
+      <nav class="navbar navbar-expand-sm navbar-white bg-white p-2">
+       <ul class="navbar-nav">
+          <li class="nav-item cat-btn px-2">
+            <a href="/wikis" class="nav-link active"><h4>Public Wikis</h4></a>
+          </li>
 
-        <% if(currentUser.isAdmin()) { %>
-          <a href="/wikis/mywikis" class="btn btn-primary">All Private Wikis</a>
-        <% } else if (currentUser.isPremium()) { %>
-          <a href="/wikis/mywikis" class="btn btn-primary">My Private Wikis</a>
-        <% } %>
+          <% if(currentUser) { %>
+            <li class="nav-item cat-btn px-2">
+              <a href="/wikis/mywikis" class="nav-link"><h4>
+                <% if(currentUser && currentUser.isAdmin()) { %>
+                  All Private Wikis
+                <% } else { %>
+                  My Private Wikis
+                <% } %>
+              </h4></a>
+            </li>
+          <% } else { %>
+            <li class="nav-item cat-btn px-2">
+              <a href="#" class="nav-link disabled"><h4>My Private Wikis</h4></a>
+            </li>
+          <% } %>
 
-        <a href="/wikis/sharedwikis" class="btn btn-primary">Collaborative Wikis</a>
-      <% } %>
-   
-      <ul class="list-group">
+          <% if(currentUser) { %>
+            <li class="nav-item cat-btn px-2">
+              <a href="/wikis/sharedwikis" class="nav-link"><h4>Collaborative Wikis</h4></a>
+            </li>
+          <% } else { %>
+            <li class="nav-item cat-btn px-2">
+              <a href="#" class="nav-link disabled"><h4>Collaborative Wikis</h4></a>
+            </li>
+          <% } %>
+
+        </ul>
+      </nav>
+    </div>
+
+    <ul class="list-group">
         <% wikis.forEach((wiki) => { %>
-          <li class="list-group-item">
-            <a href="/wikis/<%= wiki.id %>"> <%- markdown.toHTML(wiki.title) %> </a>
+          <li class="list-group-item border-0">
+            <a href="/wikis/<%= wiki.id %>"><i class="fas fa-angle-double-right"></i> <%- markdown.toHTML(wiki.title).slice(3,-4) %> </a>
           </li>
         <% }) %>
       </ul>
 
-    </main>
 
+
+
+</main>
     <% include ../static/partials/baseScripts.ejs %>
 
 </body>
