@@ -19,7 +19,7 @@
 
       <% if(currentUser) { %>
         <% if (authorizer.edit()) { %>
-          <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning btn-block my-2 mx-auto" style='width:95px'>Edit</a>
+          <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning btn-block my-2 m-0" style='width:95px'>Edit</a>
         <% } %>
         <% if (authorizer.destroy()) { %>
           <form action="/wikis/<%= wiki.id %>/destroy" method="post">
