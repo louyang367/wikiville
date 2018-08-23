@@ -29,7 +29,7 @@ module.exports = {
         res.redirect(500, "/");
       } else {
         const authorizer = new Authorizer(req.user, null);
-        res.render("wikis/mywikis", { wikis, authorizer, markdown });
+        res.render("wikis/myWikis", { wikis, authorizer, markdown });
       }
     })
   },
